@@ -2,59 +2,88 @@ package com.br.alex.model.entity;
 
 import java.time.LocalDate;
 
-import com.br.alex.repository.FaseVacina;
+import com.br.alex.repository.EstagioVacina;
 
 public class VacinaVO {
 	
-	private String pesquisador;
+	private String nomeVacina;
+	private String responsavelPesquisa;
 	private String paisOrigem;
-	private FaseVacina estagioPesquisa;
-	private LocalDate inicioPesquisa;
-	private String fase;
-		
-	public VacinaVO(String pesquisador, String paisOrigem, FaseVacina estagioPesquisa, LocalDate inicioPesquisa,
-			String fase) {
+	private int quantidadeDoses;
+	private EstagioVacina estagioPesquisa;
+	private LocalDate dataInicioPesquisa;
+	private String faseVacina;
+	
+	public VacinaVO(String nomeVacina, String responsavelPesquisa, String paisOrigem, int quantidadeDoses,
+			EstagioVacina estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina) {
 		super();
-		this.pesquisador = pesquisador;
+		this.nomeVacina = nomeVacina;
+		this.responsavelPesquisa = responsavelPesquisa;
 		this.paisOrigem = paisOrigem;
+		this.quantidadeDoses = quantidadeDoses;
 		this.estagioPesquisa = estagioPesquisa;
-		this.inicioPesquisa = inicioPesquisa;
-		this.fase = fase;
-	}	
-		
-	public VacinaVO() {
-		super();		
+		this.dataInicioPesquisa = dataInicioPesquisa;
+		this.faseVacina = faseVacina;
 	}
 
-	public String getPesquisador() {
-		return pesquisador;
+	public VacinaVO() {
+		super();
 	}
-	public void setPesquisador(String pesquisador) {
-		this.pesquisador = pesquisador;
+
+	public String getNomeVacina() {
+		return nomeVacina;
 	}
+
+	public void setNomeVacina(String nomeVacina) {
+		this.nomeVacina = nomeVacina;
+	}
+
+	public String getResponsavelPesquisa() {
+		return responsavelPesquisa;
+	}
+
+	public void setResponsavelPesquisa(String responsavelPesquisa) {
+		this.responsavelPesquisa = responsavelPesquisa;
+	}
+
 	public String getPaisOrigem() {
 		return paisOrigem;
 	}
+
 	public void setPaisOrigem(String paisOrigem) {
 		this.paisOrigem = paisOrigem;
 	}
-	public FaseVacina getEstagioPesquisa() {
+
+	public int getQuantidadeDoses() {
+		return quantidadeDoses;
+	}
+
+	public void setQuantidadeDoses(int quantidadeDoses) {
+		this.quantidadeDoses = quantidadeDoses;
+	}
+
+	public EstagioVacina getEstagioPesquisa() {
 		return estagioPesquisa;
 	}
-	public void setEstagioPesquisa(FaseVacina estagioPesquisa) {
+
+	public void setEstagioPesquisa(EstagioVacina estagioPesquisa) {
 		this.estagioPesquisa = estagioPesquisa;
 	}
-	public LocalDate getInicioPesquisa() {
-		return inicioPesquisa;
-	}
-	public void setInicioPesquisa(LocalDate inicioPesquisa) {
-		this.inicioPesquisa = inicioPesquisa;
-	}
-	public String getFase() {
-		return fase;
-	}
-	public void setFase(String fase) {
-		this.fase = fase;
-	}	
 
+	public LocalDate getDataInicioPesquisa() {
+		return dataInicioPesquisa;
+	}
+
+	public void setDataInicioPesquisa(LocalDate dataInicioPesquisa) {
+		this.dataInicioPesquisa = dataInicioPesquisa;
+	}
+
+	public String getFaseVacina() {
+		return faseVacina;
+	}
+
+	public void setFaseVacina(String faseVacina) {
+		this.faseVacina = faseVacina;
+	}
+		
 }

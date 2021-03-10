@@ -1,26 +1,30 @@
 package com.br.alex.model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class PessoaVO {
 	
 	private String nome;
 	private LocalDate dataNascimento;
-	private String sexo;
+	private char sexo;
 	private String cpf;
-	private int reacao;
+	private String categoria;
+	private List<AplicacaoVacinaVO> vacinacoes;
 	
-	public PessoaVO(String nome, LocalDate dataNascimento, String sexo, String cpf, int reacao) {
+	public PessoaVO(String nome, LocalDate dataNascimento, char sexo, String cpf, String categoria,
+			List<AplicacaoVacinaVO> vacinacoes) {
 		super();
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.cpf = cpf;
-		this.reacao = reacao;
+		this.categoria = categoria;
+		this.vacinacoes = vacinacoes;
 	}
 
 	public PessoaVO() {
-		super();		
+		super();
 	}
 
 	public String getNome() {
@@ -39,11 +43,11 @@ public class PessoaVO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 
@@ -55,12 +59,20 @@ public class PessoaVO {
 		this.cpf = cpf;
 	}
 
-	public int getReacao() {
-		return reacao;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setReacao(int reacao) {
-		this.reacao = reacao;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
-		
+
+	public List<AplicacaoVacinaVO> getVacinacoes() {
+		return vacinacoes;
+	}
+
+	public void setVacinacoes(List<AplicacaoVacinaVO> vacinacoes) {
+		this.vacinacoes = vacinacoes;
+	}
+					
 }

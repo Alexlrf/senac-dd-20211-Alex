@@ -1,6 +1,6 @@
 package com.br.alex.repository;
 
-public enum FaseVacina {
+public enum EstagioVacina {
 	
 	INICIAL, TESTES, APLICACAOEMMASSA
 
