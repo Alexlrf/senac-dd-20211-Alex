@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PessoaVO {
-	
+
 	private String nome;
 	private LocalDate dataNascimento;
-	private char sexo;
+	private String sexo;
 	private String cpf;
 	private String categoria;
 	private List<AplicacaoVacinaVO> vacinacoes;
-	
-	public PessoaVO(String nome, LocalDate dataNascimento, char sexo, String cpf, String categoria,
+
+	public PessoaVO(String nome, LocalDate dataNascimento, String sexo, String cpf, String categoria,
 			List<AplicacaoVacinaVO> vacinacoes) {
 		super();
 		this.nome = nome;
@@ -43,11 +43,11 @@ public class PessoaVO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
@@ -74,5 +74,5 @@ public class PessoaVO {
 	public void setVacinacoes(List<AplicacaoVacinaVO> vacinacoes) {
 		this.vacinacoes = vacinacoes;
 	}
-					
+
 }

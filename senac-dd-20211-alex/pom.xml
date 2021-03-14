@@ -3,5 +3,12 @@
   <groupId>br.com.alex</groupId>
   <artifactId>senac-dd-20211-alex</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>senac-dd-20211-alex</name>
+  <name>senac-dd-20211-alex</name>  
+ 	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.49</version>
+		</dependency>
+	</dependencies>
 </project>
