@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PessoaVO {
 
+	private int idPessoa;
 	private String nome;
 	private LocalDate dataNascimento;
 	private String sexo;
@@ -75,4 +76,18 @@ public class PessoaVO {
 		this.vacinacoes = vacinacoes;
 	}
 
+	public int getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	@Override
+	public String toString() {
+		return "PessoaVO [\nidPessoa= " + idPessoa + "\n, nome= " + nome + "\n, dataNascimento= " + dataNascimento
+				+ "\n, sexo= " + sexo + "\n, cpf= " + cpf + "\n, categoria= " + categoria + "\n, vacinacoes= "
+				+ vacinacoes + "\n]";
+	}
 }
