@@ -1,6 +1,6 @@
 # senac-dd-20211-Alex
 
-<u><h3>Hipótese da Situação Problema:</h3></u>
+<h3> <span style="color:blue"> Hipótese da Situação Problema: </h3>
 
 <h3>Uma vacina possui as seguintes informações:</h3> 
   * país de origem;<br>
