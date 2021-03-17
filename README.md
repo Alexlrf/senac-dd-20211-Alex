@@ -1,6 +1,6 @@
 # senac-dd-20211-Alex
 
-Hipótese da Situação Problema:
+<u><h3>Hipótese da Situação Problema:</h3></u>
 
 <h3>Uma vacina possui as seguintes informações:</h3> 
   * país de origem;<br>
@@ -14,4 +14,4 @@ Hipótese da Situação Problema:
   2 - Voluntários;<br>
   3 - Público em geral.
 
-Cada pessoa (com nome, dataNascimento, sexo, CPF) vacinada avaliará a sua reação à aplicação, numa escala de 1 (péssima) a 5 (ótima).
+<i>Cada pessoa (com nome, dataNascimento, sexo, CPF) vacinada avaliará a sua reação à aplicação, numa escala de 1 (péssima) a 5 (ótima).</i>
