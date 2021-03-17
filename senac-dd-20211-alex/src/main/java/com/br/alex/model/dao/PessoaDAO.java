@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.br.alex.model.entity.AplicacaoVacinaVO;
 import com.br.alex.model.entity.PessoaVO;
 import com.br.alex.repository.Conexao;
 
@@ -21,12 +22,13 @@ public class PessoaDAO {
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
-			// stmt.setInt(1, pessoaVO.getVacinacoes());
+			
 			stmt.setString(1, pessoaVO.getNome());
 			stmt.setDate(2, java.sql.Date.valueOf(pessoaVO.getDataNascimento()));
 			stmt.setString(3, pessoaVO.getSexo());
 			stmt.setString(4, pessoaVO.getCpf());
 			stmt.setString(5, pessoaVO.getCategoria());
+			
 			stmt.executeUpdate();
 
 			ResultSet returnId = stmt.getGeneratedKeys();
@@ -140,8 +142,13 @@ public class PessoaDAO {
 		pessoa.setCpf(rs.getString("cpf"));
 		pessoa.setSexo(rs.getString("sexo"));
 		pessoa.setDataNascimento(LocalDate.parse(rs.getString("dataNascimento")));
-		// pessoa.setVacinacoes(rs.getArray(""));
 		pessoa.setCategoria(rs.getString("categoria"));
+		
+		
+		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
+		List<AplicacaoVacinaVO> lista = aplicacaoVacinaDAO.findByPessoa(pessoa.getIdPessoa());
+		
+		pessoa.setVacinacoes(lista);
 
 		return pessoa;
 	}

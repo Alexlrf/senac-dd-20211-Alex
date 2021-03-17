@@ -1,12 +1,21 @@
 package com.br.alex.view;
 
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.br.alex.model.dao.AplicacaoVacinaDAO;
+import com.br.alex.model.dao.PessoaDAO;
+import com.br.alex.model.dao.VacinaDAO;
 import com.br.alex.model.entity.AplicacaoVacinaVO;
+import com.br.alex.model.entity.PessoaVO;
+import com.br.alex.model.entity.VacinaVO;
+import com.br.alex.repository.Constants;
 
 public class Principal {
 	
@@ -19,11 +28,11 @@ public class Principal {
 		
 	
 //		PessoaVO pessoaVO =  new PessoaVO();
-//		pessoaVO.setNome("Joana");
+//		pessoaVO.setNome("Roberval");
 //		pessoaVO.setDataNascimento(LocalDate.parse("30/05/2008",dataFormatter));
-//		pessoaVO.setCpf("999");
-//		pessoaVO.setSexo("feminino");
-//		pessoaVO.setCategoria(Constants.FASE_VOLUNTARIOS);
+//		pessoaVO.setCpf("777");
+//		pessoaVO.setSexo("masculino");
+//		pessoaVO.setCategoria(Constants.FASE_PUBLICO_GERAL);
 //		
 //		PessoaDAO pessoaDAO = new PessoaDAO();		
 //		try {
@@ -55,12 +64,12 @@ public class Principal {
 		
 		// ===================  Busca por ID  ============================================
 		
-//		PessoaDAO pessoaDAO = new PessoaDAO();
-//		PessoaVO pessoa;
-//		
-//		pessoa = pessoaDAO.finfById(2);
-//		
-//		System.out.println(pessoa.toString());
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		PessoaVO pessoa;
+		
+		pessoa = pessoaDAO.finfById(3);
+		
+		System.out.println(pessoa.toString());
 		
 		
 		// ==================== Busca Todos ===================================================
@@ -83,13 +92,13 @@ public class Principal {
 //		VacinaDAO dao = new VacinaDAO();
 //		VacinaVO vacinaVO = new VacinaVO();
 //		
-//		vacinaVO.setNomeVacina("Vacina444");
-//		vacinaVO.setEstagioPesquisa("testes444");
-//		vacinaVO.setResponsavelPesquisa("João444");
+//		vacinaVO.setNomeVacina("Vacina000");
+//		vacinaVO.setEstagioPesquisa("testes000");
+//		vacinaVO.setResponsavelPesquisa("João000");
 //		vacinaVO.setDataInicioPesquisa(LocalDate.parse("22/02/2012",dataFormatter));
-//		vacinaVO.setFaseVacina("testes444");
-//		vacinaVO.setPaisOrigem("Estônia444");
-//		vacinaVO.setQuantidadeDoses(4);//		
+//		vacinaVO.setFaseVacina("testes000");
+//		vacinaVO.setPaisOrigem("Estônia000");
+//		vacinaVO.setQuantidadeDoses(1);//		
 //		dao.insert(vacinaVO);
 		
 		
@@ -125,9 +134,9 @@ public class Principal {
 //		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
 //		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
 //		
-//		aplicacaoVacinaVO.setIdVacina(1);
-//		aplicacaoVacinaVO.setidPessoa(1);
-//		aplicacaoVacinaVO.setReacao(Constants.REACAO_BOA);
+//		aplicacaoVacinaVO.setIdVacina(2);
+//		aplicacaoVacinaVO.setidPessoa(2);
+//		aplicacaoVacinaVO.setReacao(Constants.REACAO_OTIMA);
 //		aplicacaoVacinaVO.setDataAplicacao(LocalDate.parse("22/02/2012",dataFormatter));
 //		aplicacaoVacinaDAO.insert(aplicacaoVacinaVO);
 		
@@ -149,17 +158,17 @@ public class Principal {
 //		aplicacaoVacinaDAO.delete(3);
 		
 		
-		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
-		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
+//		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
+//		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
 		
 		
 //		System.out.println(aplicacaoVacinaDAO.findById(2).toString());
 		
-		List<AplicacaoVacinaVO> lista = new ArrayList<>();
-		lista = aplicacaoVacinaDAO.findAll();
-		for (AplicacaoVacinaVO aplicacao : lista) {
-			
-			System.out.println("\n"+aplicacao.toString());
+//		List<AplicacaoVacinaVO> lista = new ArrayList<>();
+//		lista = aplicacaoVacinaDAO.findAll();
+//		for (AplicacaoVacinaVO aplicacao : lista) {
+//			
+//			System.out.println("\n"+aplicacao.toString());
 			
 		}
 		
@@ -170,4 +179,4 @@ public class Principal {
 	
 	}
 
-}
+

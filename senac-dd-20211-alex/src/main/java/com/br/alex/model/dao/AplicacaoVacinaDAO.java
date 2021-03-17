@@ -100,6 +100,7 @@ public class AplicacaoVacinaDAO {
 
 			stmt.setInt(1, idaplicacaoVacinaVO);
 			ResultSet rs = stmt.executeQuery();
+
 			if (rs.next()) {
 
 				aplicacao = this.completeResultset(rs);
@@ -137,10 +138,37 @@ public class AplicacaoVacinaDAO {
 
 	}
 
+	public List<AplicacaoVacinaVO> findByPessoa(Integer idPessoa) {
+
+		List<AplicacaoVacinaVO> aplicacoes = new ArrayList<>();
+		AplicacaoVacinaVO aplicacaoVacina = new AplicacaoVacinaVO();
+		String sql = "SELECT * FROM aplicacao_vacina WHERE id_pessoa = ?;";
+
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
+
+			stmt.setInt(1, idPessoa);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				aplicacaoVacina = this.completeResultset(rs);
+				aplicacoes.add(aplicacaoVacina);
+
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao realizar consulta por pessoa!\n" + e.getMessage());
+		}
+
+		return aplicacoes;
+
+	}
+
 	private AplicacaoVacinaVO completeResultset(ResultSet rs) throws SQLException {
 
 		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
-
+		aplicacaoVacinaVO.setIdAplicacaoVacina(rs.getInt("id_aplicacao_vacina"));
 		aplicacaoVacinaVO.setIdVacina(rs.getInt("id_vacina"));
 		aplicacaoVacinaVO.setidPessoa(rs.getInt("id_pessoa"));
 		aplicacaoVacinaVO.setReacao(rs.getInt("reacao"));
