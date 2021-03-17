@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,9 @@ public class PessoaDAO {
 	public PessoaVO insert(PessoaVO pessoaVO) throws SQLException {
 
 		String sql = "INSERT INTO pessoa (nome, dataNascimento, sexo, cpf, categoria) values (?, ?, ?, ?, ?);";
-		Connection conn = Conexao.getConnection();
-		PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);
 
-		try {
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
 			// stmt.setInt(1, pessoaVO.getVacinacoes());
 			stmt.setString(1, pessoaVO.getNome());
 			stmt.setDate(2, java.sql.Date.valueOf(pessoaVO.getDataNascimento()));
@@ -29,18 +29,16 @@ public class PessoaDAO {
 			stmt.setString(5, pessoaVO.getCategoria());
 			stmt.executeUpdate();
 
+			ResultSet returnId = stmt.getGeneratedKeys();
+			if (returnId.next()) {
+				pessoaVO.setIdPessoa(returnId.getInt(1));
+			}
+
 			JOptionPane.showMessageDialog(null, "Inclusão efetuada!");
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao inserir cadastro!\n" + e.getMessage());
 
-		} finally {
-			try {
-				conn.close();
-				stmt.close();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Erro ao fechar conexão (insert)!\n" + e.getMessage());
-			}
 		}
 		return pessoaVO;
 	}
@@ -49,10 +47,9 @@ public class PessoaDAO {
 
 		boolean updated = false;
 		String sql = "UPDATE pessoa SET nome = ?, dataNascimento = ?, sexo = ?, cpf = ?, categoria = ? WHERE id_pessoa = ?;";
-		Connection conn = Conexao.getConnection();
-		PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);
 
-		try {
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
 			// stmt.setInt(1, pessoaVO.getVacinacoes());
 			stmt.setString(1, pessoaVO.getNome());
 			stmt.setDate(2, java.sql.Date.valueOf(pessoaVO.getDataNascimento()));
@@ -68,13 +65,6 @@ public class PessoaDAO {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao tentar alterar!\n" + e.getMessage());
 			updated = false;
-		} finally {
-			try {
-				conn.close();
-				stmt.close();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Erro ao fechar conexão (update)!\n" + e.getMessage());
-			}
 		}
 		return updated;
 	}
@@ -83,10 +73,9 @@ public class PessoaDAO {
 
 		boolean deleted = false;
 		String sql = "DELETE FROM pessoa WHERE id_pessoa = ?;";
-		Connection conn = Conexao.getConnection();
-		PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);
 
-		try {
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);) {
 			stmt.setInt(1, idPessoa);
 			stmt.executeUpdate();
 
@@ -96,13 +85,6 @@ public class PessoaDAO {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao tentar excluir!\n" + e.getMessage());
 			deleted = false;
-		} finally {
-			try {
-				conn.close();
-				stmt.close();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Erro ao fechar conexão (delete)!\n" + e.getMessage());
-			}
 		}
 		return deleted;
 	}
@@ -111,34 +93,20 @@ public class PessoaDAO {
 
 		PessoaVO pessoa = null;
 		String sql = "SELECT * FROM pessoa WHERE id_pessoa = ?; ";
-		Connection conn = Conexao.getConnection();
-		PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);
 
-		try {
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);) {
 			stmt.setInt(1, idPessoa);
 
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				pessoa = new PessoaVO();
-				pessoa.setIdPessoa(rs.getInt("id_pessoa"));
-				pessoa.setNome(rs.getString("nome"));
-				pessoa.setCpf(rs.getString("cpf"));
-				pessoa.setSexo(rs.getString("sexo"));
-				// pessoa.setDataNascimento(java.sql.Date.valueOf(rs.getString("dataNascimento")));
-				// pessoa.setVacinacoes(rs.getArray(""));
-				pessoa.setCategoria(rs.getString("categoria"));
+
+				pessoa = this.completeResultset(rs);
 			}
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao realizar consulta por ID!\n" + e.getMessage());
-		} finally {
-			try {
-				conn.close();
-				stmt.close();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Erro ao fechar conexão (findById)!\n" + e.getMessage());
-			}
 		}
 		return pessoa;
 	}
@@ -147,34 +115,35 @@ public class PessoaDAO {
 
 		List<PessoaVO> lista = new ArrayList<>();
 		String sql = "SELECT * FROM pessoa;";
-		Connection conn = Conexao.getConnection();
-		PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);
+		PessoaVO pessoaVO = new PessoaVO();
 
-		try {
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql);) {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				PessoaVO pessoaVO = new PessoaVO();
-				pessoaVO.setIdPessoa(rs.getInt("id_pessoa"));
-				pessoaVO.setNome(rs.getString("nome"));
-				pessoaVO.setCpf(rs.getString("cpf"));
-				pessoaVO.setSexo(rs.getString("sexo"));
-				// pessoaVO.setDataNascimento(java.sql.Date.valueOf(rs.getString("dataNascimento")));
-				// pessoaVO.setVacinacoes(rs.getArray(""));
-				pessoaVO.setCategoria(rs.getString("categoria"));
+
+				pessoaVO = this.completeResultset(rs);
 				lista.add(pessoaVO);
 			}
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao realizar consulta geral!\n" + e.getMessage());
-		} finally {
-			try {
-				conn.close();
-				stmt.close();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Erro ao fechar conexão (findAll)!\n" + e.getMessage());
-			}
 		}
 		return lista;
+	}
+
+	private PessoaVO completeResultset(ResultSet rs) throws SQLException {
+
+		PessoaVO pessoa = new PessoaVO();
+		pessoa.setIdPessoa(rs.getInt("id_pessoa"));
+		pessoa.setNome(rs.getString("nome"));
+		pessoa.setCpf(rs.getString("cpf"));
+		pessoa.setSexo(rs.getString("sexo"));
+		pessoa.setDataNascimento(LocalDate.parse(rs.getString("dataNascimento")));
+		// pessoa.setVacinacoes(rs.getArray(""));
+		pessoa.setCategoria(rs.getString("categoria"));
+
+		return pessoa;
 	}
 
 }

@@ -1,11 +1,12 @@
 package com.br.alex.model.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PessoaVO {
 
-	private int idPessoa;
+	private Integer idPessoa;
 	private String nome;
 	private LocalDate dataNascimento;
 	private String sexo;
@@ -26,6 +27,14 @@ public class PessoaVO {
 
 	public PessoaVO() {
 		super();
+	}
+
+	public Integer getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
@@ -76,18 +85,12 @@ public class PessoaVO {
 		this.vacinacoes = vacinacoes;
 	}
 
-	public int getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(int idPessoa) {
-		this.idPessoa = idPessoa;
-	}
+	static DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@Override
 	public String toString() {
-		return "PessoaVO [\nidPessoa= " + idPessoa + "\n, nome= " + nome + "\n, dataNascimento= " + dataNascimento
-				+ "\n, sexo= " + sexo + "\n, cpf= " + cpf + "\n, categoria= " + categoria + "\n, vacinacoes= "
-				+ vacinacoes + "\n]";
+		return "PessoaVO [\nidPessoa= " + idPessoa + "\n, nome= " + nome + "\n, dataNascimento= "
+				+ dataFormatter.format(dataNascimento) + "\n, sexo= " + sexo + "\n, cpf= " + cpf + "\n, categoria= "
+				+ categoria + "\n, vacinacoes= " + vacinacoes + "\n]";
 	}
 }

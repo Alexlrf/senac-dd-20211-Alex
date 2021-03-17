@@ -2,20 +2,19 @@ package com.br.alex.model.entity;
 
 import java.time.LocalDate;
 
-import com.br.alex.repository.EstagioVacina;
-
 public class VacinaVO {
-	
+
+	private Integer idVacina;
 	private String nomeVacina;
 	private String responsavelPesquisa;
 	private String paisOrigem;
 	private int quantidadeDoses;
-	private EstagioVacina estagioPesquisa;
+	private String estagioPesquisa;
 	private LocalDate dataInicioPesquisa;
 	private String faseVacina;
-	
+
 	public VacinaVO(String nomeVacina, String responsavelPesquisa, String paisOrigem, int quantidadeDoses,
-			EstagioVacina estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina) {
+			String estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina) {
 		super();
 		this.nomeVacina = nomeVacina;
 		this.responsavelPesquisa = responsavelPesquisa;
@@ -25,9 +24,17 @@ public class VacinaVO {
 		this.dataInicioPesquisa = dataInicioPesquisa;
 		this.faseVacina = faseVacina;
 	}
-
+	
 	public VacinaVO() {
 		super();
+	}
+
+	public Integer getIdVacina() {
+		return idVacina;
+	}
+
+	public void setIdVacina(Integer idVacina) {
+		this.idVacina = idVacina;
 	}
 
 	public String getNomeVacina() {
@@ -62,11 +69,11 @@ public class VacinaVO {
 		this.quantidadeDoses = quantidadeDoses;
 	}
 
-	public EstagioVacina getEstagioPesquisa() {
+	public String getEstagioPesquisa() {
 		return estagioPesquisa;
 	}
 
-	public void setEstagioPesquisa(EstagioVacina estagioPesquisa) {
+	public void setEstagioPesquisa(String estagioPesquisa) {
 		this.estagioPesquisa = estagioPesquisa;
 	}
 
@@ -85,5 +92,14 @@ public class VacinaVO {
 	public void setFaseVacina(String faseVacina) {
 		this.faseVacina = faseVacina;
 	}
-		
+	
+	@Override
+	public String toString() {
+		return "VacinaVO [\nidVacina=" + idVacina + "\n, nomeVacina=" + nomeVacina + "\n, responsavelPesquisa="
+				+ responsavelPesquisa + "\n, paisOrigem=" + paisOrigem + "\n, quantidadeDoses=" + quantidadeDoses
+				+ "\n, estagioPesquisa=" + estagioPesquisa + "\n, dataInicioPesquisa=" + dataInicioPesquisa
+				+ "\n, faseVacina=" + faseVacina + "\n]";
+	}
+
+
 }

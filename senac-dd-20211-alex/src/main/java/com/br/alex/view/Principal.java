@@ -1,16 +1,11 @@
 package com.br.alex.view;
 
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import com.br.alex.model.dao.PessoaDAO;
 import com.br.alex.model.entity.PessoaVO;
-import com.br.alex.repository.Constants;
 
 public class Principal {
 	
@@ -21,13 +16,13 @@ public class Principal {
 		
 		// =======================  Inclui =============================================		
 		
-	
+//	
 //		PessoaVO pessoaVO =  new PessoaVO();
-//		pessoaVO.setNome("Bruna");
-//		pessoaVO.setDataNascimento(LocalDate.parse("11/11/2000",dataFormatter));
-//		pessoaVO.setCpf("456");
+//		pessoaVO.setNome("Joana");
+//		pessoaVO.setDataNascimento(LocalDate.parse("30/05/2008",dataFormatter));
+//		pessoaVO.setCpf("999");
 //		pessoaVO.setSexo("feminino");
-//		pessoaVO.setCategoria(Constants.FASE_PUBLICO_GERAL);
+//		pessoaVO.setCategoria(Constants.FASE_VOLUNTARIOS);
 //		
 //		PessoaDAO pessoaDAO = new PessoaDAO();		
 //		try {
@@ -38,24 +33,29 @@ public class Principal {
 //		}
 		
 		// ======================  Altera  ===============================================
-		
+//		
 //		PessoaVO pessoaVO =  new PessoaVO();
 //		PessoaDAO pessoaDAO = new PessoaDAO();
-//		pessoaVO.setIdPessoa(1);
+//		pessoaVO.setIdPessoa(3);
 //		pessoaVO.setNome("Maria Rosa");
 //		pessoaVO.setDataNascimento(LocalDate.parse("12/12/2000",dataFormatter));
 //		pessoaVO.setCpf("12345");
 //		pessoaVO.setSexo("feminino");
-//		pessoaVO.setCategoria(Constants.FASE_PUBLICO_GERAL);
+//		pessoaVO.setCategoria(Constants.FASE_PESQUISADORES);
 //		
 //		pessoaDAO.update(pessoaVO);
+		
+		// ===================  Deleta  ============================================
+		
+//		PessoaDAO pessoaDAO = new PessoaDAO();
+//				
+//		pessoaDAO.delete(3);
+		
 		
 		// ===================  Busca por ID  ============================================
 		
 //		PessoaDAO pessoaDAO = new PessoaDAO();
 //		PessoaVO pessoa;
-//		
-//		pessoaDAO.delete(1);
 //		
 //		pessoa = pessoaDAO.finfById(2);
 //		
@@ -64,15 +64,61 @@ public class Principal {
 		
 		// ==================== Busca Todos ===================================================
 		
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		PessoaVO pessoa;
-
-		List<PessoaVO >ListaPessoa = pessoaDAO.findAll();
+//		PessoaDAO pessoaDAO = new PessoaDAO();
+//		
+//		List<PessoaVO >ListaPessoa = pessoaDAO.findAll();
+//		
+//		for (PessoaVO pessoaVO : ListaPessoa) {
+//			System.out.println("\n"+pessoaVO.toString());
+//			
+//		}
 		
-		for (PessoaVO pessoaVO : ListaPessoa) {
-			System.out.println(pessoaVO.toString());
-			
-		}		
+		
+//		===================================================================================================
+//		===================================================================================================
+//		===================================================================================================
+//		===================================================================================================
+		
+//		VacinaDAO dao = new VacinaDAO();
+//		VacinaVO vacinaVO = new VacinaVO();
+//		
+//		vacinaVO.setNomeVacina("Vacina444");
+//		vacinaVO.setEstagioPesquisa("testes444");
+//		vacinaVO.setResponsavelPesquisa("João444");
+//		vacinaVO.setDataInicioPesquisa(LocalDate.parse("22/02/2012",dataFormatter));
+//		vacinaVO.setFaseVacina("testes444");
+//		vacinaVO.setPaisOrigem("Estônia444");
+//		vacinaVO.setQuantidadeDoses(4);//		
+//		dao.insert(vacinaVO);
+		
+		
+		
+//		vacinaVO.setIdVacina(3);
+//		vacinaVO.setNomeVacina("Vacina999");
+//		vacinaVO.setEstagioPesquisa("testes999");
+//		vacinaVO.setResponsavelPesquisa("João999");
+//		vacinaVO.setDataInicioPesquisa(LocalDate.parse("19/09/2019",dataFormatter));
+//		vacinaVO.setFaseVacina("testes999");
+//		vacinaVO.setPaisOrigem("Estônia999");
+//		vacinaVO.setQuantidadeDoses(3);
+//		dao.update(vacinaVO);
+		
+		
+//		dao.delete(4);
+		
+		
+		
+//		vacinaVO =  dao.findById(4);		
+//		System.out.println(vacinaVO.toString());
+		
+		
+		
+//		List<VacinaVO> lista = new ArrayList<>();
+//		lista = dao.findAll();
+//		
+//		for (VacinaVO vacina : lista) {						
+//			System.out.println("\n"+vacina.toString()); 
+//		}
 	
 	}
 

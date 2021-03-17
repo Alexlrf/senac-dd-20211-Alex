@@ -3,12 +3,13 @@ package com.br.alex.model.entity;
 import java.time.LocalDate;
 
 public class AplicacaoVacinaVO {
-	
+
+	private Integer idAplicacaoVacina;
 	private VacinaVO vacina;
 	private LocalDate dataAplicacao;
 	private PessoaVO pessoaVacinada;
 	private String reacao;
-	
+
 	public AplicacaoVacinaVO(VacinaVO vacina, LocalDate dataAplicacao, PessoaVO pessoaVacinada, String reacao) {
 		super();
 		this.vacina = vacina;
@@ -19,6 +20,14 @@ public class AplicacaoVacinaVO {
 
 	public AplicacaoVacinaVO() {
 		super();
+	}
+
+	public Integer getIdAplicacaoVacina() {
+		return idAplicacaoVacina;
+	}
+
+	public void setIdAplicacaoVacina(Integer idAplicacaoVacina) {
+		this.idAplicacaoVacina = idAplicacaoVacina;
 	}
 
 	public VacinaVO getVacina() {
@@ -52,5 +61,5 @@ public class AplicacaoVacinaVO {
 	public void setReacao(String reacao) {
 		this.reacao = reacao;
 	}
-		
+
 }
