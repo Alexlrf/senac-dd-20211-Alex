@@ -5,16 +5,16 @@ import java.time.LocalDate;
 public class AplicacaoVacinaVO {
 
 	private Integer idAplicacaoVacina;
-	private VacinaVO vacina;
+	private Integer idVacina;
 	private LocalDate dataAplicacao;
-	private PessoaVO pessoaVacinada;
-	private String reacao;
+	private Integer idPessoa;
+	private Integer reacao;
 
-	public AplicacaoVacinaVO(VacinaVO vacina, LocalDate dataAplicacao, PessoaVO pessoaVacinada, String reacao) {
+	public AplicacaoVacinaVO(Integer idVacina, LocalDate dataAplicacao, Integer idPessoa, Integer reacao) {
 		super();
-		this.vacina = vacina;
+		this.idVacina = idVacina;
 		this.dataAplicacao = dataAplicacao;
-		this.pessoaVacinada = pessoaVacinada;
+		this.idPessoa = idPessoa;
 		this.reacao = reacao;
 	}
 
@@ -30,12 +30,12 @@ public class AplicacaoVacinaVO {
 		this.idAplicacaoVacina = idAplicacaoVacina;
 	}
 
-	public VacinaVO getVacina() {
-		return vacina;
+	public Integer getIdVacina() {
+		return idVacina;
 	}
 
-	public void setVacina(VacinaVO vacina) {
-		this.vacina = vacina;
+	public void setIdVacina(Integer idVacina) {
+		this.idVacina = idVacina;
 	}
 
 	public LocalDate getDataAplicacao() {
@@ -46,20 +46,29 @@ public class AplicacaoVacinaVO {
 		this.dataAplicacao = dataAplicacao;
 	}
 
-	public PessoaVO getPessoaVacinada() {
-		return pessoaVacinada;
+	public Integer getidPessoa() {
+		return idPessoa;
 	}
 
-	public void setPessoaVacinada(PessoaVO pessoaVacinada) {
-		this.pessoaVacinada = pessoaVacinada;
+	public void setidPessoa(Integer iPessoa) {
+		this.idPessoa = iPessoa;
 	}
 
-	public String getReacao() {
+	public Integer getReacao() {
 		return reacao;
 	}
 
-	public void setReacao(String reacao) {
+	public void setReacao(Integer reacao) {
 		this.reacao = reacao;
 	}
+
+	@Override
+	public String toString() {
+		return "AplicacaoVacinaVO [\nidAplicacaoVacina=" + idAplicacaoVacina + "\n, idVacina=" + idVacina
+				+ "\n, dataAplicacao=" + dataAplicacao + "\n, idPessoa=" + idPessoa + "\n, reacao=" + reacao
+				+ "\n]";
+	}
+	
+	
 
 }

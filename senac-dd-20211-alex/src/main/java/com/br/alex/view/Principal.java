@@ -2,10 +2,11 @@ package com.br.alex.view;
 
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.br.alex.model.dao.PessoaDAO;
-import com.br.alex.model.entity.PessoaVO;
+import com.br.alex.model.dao.AplicacaoVacinaDAO;
+import com.br.alex.model.entity.AplicacaoVacinaVO;
 
 public class Principal {
 	
@@ -16,7 +17,7 @@ public class Principal {
 		
 		// =======================  Inclui =============================================		
 		
-//	
+	
 //		PessoaVO pessoaVO =  new PessoaVO();
 //		pessoaVO.setNome("Joana");
 //		pessoaVO.setDataNascimento(LocalDate.parse("30/05/2008",dataFormatter));
@@ -119,6 +120,53 @@ public class Principal {
 //		for (VacinaVO vacina : lista) {						
 //			System.out.println("\n"+vacina.toString()); 
 //		}
+		
+		
+//		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
+//		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
+//		
+//		aplicacaoVacinaVO.setIdVacina(1);
+//		aplicacaoVacinaVO.setidPessoa(1);
+//		aplicacaoVacinaVO.setReacao(Constants.REACAO_BOA);
+//		aplicacaoVacinaVO.setDataAplicacao(LocalDate.parse("22/02/2012",dataFormatter));
+//		aplicacaoVacinaDAO.insert(aplicacaoVacinaVO);
+		
+		
+//		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
+//		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
+//		
+//		aplicacaoVacinaVO.setIdVacina(1);
+//		aplicacaoVacinaVO.setidPessoa(1);
+//		aplicacaoVacinaVO.setReacao(Constants.REACAO_PESSIMA);
+//		aplicacaoVacinaVO.setDataAplicacao(LocalDate.parse("22/02/2019",dataFormatter));
+//		aplicacaoVacinaVO.setIdAplicacaoVacina(2);
+//		
+//		aplicacaoVacinaDAO.update(aplicacaoVacinaVO);
+		
+		
+		
+//		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();		
+//		aplicacaoVacinaDAO.delete(3);
+		
+		
+		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
+		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
+		
+		
+//		System.out.println(aplicacaoVacinaDAO.findById(2).toString());
+		
+		List<AplicacaoVacinaVO> lista = new ArrayList<>();
+		lista = aplicacaoVacinaDAO.findAll();
+		for (AplicacaoVacinaVO aplicacao : lista) {
+			
+			System.out.println("\n"+aplicacao.toString());
+			
+		}
+		
+		
+		
+		
+		
 	
 	}
 
