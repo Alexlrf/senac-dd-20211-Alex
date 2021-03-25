@@ -11,10 +11,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.br.alex.model.entity.AplicacaoVacinaVO;
+import com.br.alex.repository.BaseDAO;
 import com.br.alex.repository.Conexao;
 
-public class AplicacaoVacinaDAO {
+public class AplicacaoVacinaDAO implements BaseDAO<AplicacaoVacinaVO> {
 
+	@Override
 	public AplicacaoVacinaVO insert(AplicacaoVacinaVO aplicacaoVacinaVO) {
 
 		String sql = "INSERT INTO aplicacao_vacina(id_vacina, id_pessoa, reacao, data_aplicacao) values(?, ?, ?, ?);";
@@ -43,6 +45,7 @@ public class AplicacaoVacinaDAO {
 		return aplicacaoVacinaVO;
 	}
 
+	@Override
 	public boolean update(AplicacaoVacinaVO aplicacaoVacinaVO) {
 
 		boolean updated = false;
@@ -69,6 +72,7 @@ public class AplicacaoVacinaDAO {
 
 	}
 
+	@Override
 	public boolean delete(Integer idAplicacaoVacina) {
 
 		boolean deleted = false;
@@ -89,6 +93,7 @@ public class AplicacaoVacinaDAO {
 		return deleted;
 	}
 
+	@Override
 	public AplicacaoVacinaVO findById(Integer idaplicacaoVacinaVO) {
 
 		AplicacaoVacinaVO aplicacao = new AplicacaoVacinaVO();
@@ -113,6 +118,7 @@ public class AplicacaoVacinaDAO {
 
 	}
 
+	@Override
 	public List<AplicacaoVacinaVO> findAll() {
 
 		String sql = "SELECT * FROM aplicacao_vacina;";
@@ -136,6 +142,19 @@ public class AplicacaoVacinaDAO {
 		}
 		return aplicacoes;
 
+	}
+
+	@Override
+	public AplicacaoVacinaVO completeResultset(ResultSet rs) throws SQLException {
+
+		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
+		aplicacaoVacinaVO.setIdAplicacaoVacina(rs.getInt("id_aplicacao_vacina"));
+		aplicacaoVacinaVO.setIdVacina(rs.getInt("id_vacina"));
+		aplicacaoVacinaVO.setidPessoa(rs.getInt("id_pessoa"));
+		aplicacaoVacinaVO.setReacao(rs.getInt("reacao"));
+		aplicacaoVacinaVO.setDataAplicacao(LocalDate.parse(rs.getString("data_aplicacao")));
+
+		return aplicacaoVacinaVO;
 	}
 
 	public List<AplicacaoVacinaVO> findByPessoa(Integer idPessoa) {
@@ -163,18 +182,6 @@ public class AplicacaoVacinaDAO {
 
 		return aplicacoes;
 
-	}
-
-	private AplicacaoVacinaVO completeResultset(ResultSet rs) throws SQLException {
-
-		AplicacaoVacinaVO aplicacaoVacinaVO = new AplicacaoVacinaVO();
-		aplicacaoVacinaVO.setIdAplicacaoVacina(rs.getInt("id_aplicacao_vacina"));
-		aplicacaoVacinaVO.setIdVacina(rs.getInt("id_vacina"));
-		aplicacaoVacinaVO.setidPessoa(rs.getInt("id_pessoa"));
-		aplicacaoVacinaVO.setReacao(rs.getInt("reacao"));
-		aplicacaoVacinaVO.setDataAplicacao(LocalDate.parse(rs.getString("data_aplicacao")));
-
-		return aplicacaoVacinaVO;
 	}
 
 }

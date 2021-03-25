@@ -67,7 +67,7 @@ public class Principal {
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		PessoaVO pessoa;
 		
-		pessoa = pessoaDAO.finfById(3);
+		pessoa = pessoaDAO.findById(3);
 		
 		System.out.println(pessoa.toString());
 		

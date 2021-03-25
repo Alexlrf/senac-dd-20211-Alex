@@ -12,23 +12,25 @@ import javax.swing.JOptionPane;
 
 import com.br.alex.model.entity.AplicacaoVacinaVO;
 import com.br.alex.model.entity.PessoaVO;
+import com.br.alex.repository.BaseDAO;
 import com.br.alex.repository.Conexao;
 
-public class PessoaDAO {
+public class PessoaDAO implements BaseDAO<PessoaVO> {
 
+	@Override
 	public PessoaVO insert(PessoaVO pessoaVO) throws SQLException {
 
 		String sql = "INSERT INTO pessoa (nome, dataNascimento, sexo, cpf, categoria) values (?, ?, ?, ?, ?);";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
-			
+
 			stmt.setString(1, pessoaVO.getNome());
 			stmt.setDate(2, java.sql.Date.valueOf(pessoaVO.getDataNascimento()));
 			stmt.setString(3, pessoaVO.getSexo());
 			stmt.setString(4, pessoaVO.getCpf());
 			stmt.setString(5, pessoaVO.getCategoria());
-			
+
 			stmt.executeUpdate();
 
 			ResultSet returnId = stmt.getGeneratedKeys();
@@ -45,6 +47,7 @@ public class PessoaDAO {
 		return pessoaVO;
 	}
 
+	@Override
 	public boolean update(PessoaVO pessoaVO) {
 
 		boolean updated = false;
@@ -71,6 +74,7 @@ public class PessoaDAO {
 		return updated;
 	}
 
+	@Override
 	public boolean delete(Integer idPessoa) {
 
 		boolean deleted = false;
@@ -91,7 +95,8 @@ public class PessoaDAO {
 		return deleted;
 	}
 
-	public PessoaVO finfById(Integer idPessoa) {
+	@Override
+	public PessoaVO findById(Integer idPessoa) {
 
 		PessoaVO pessoa = null;
 		String sql = "SELECT * FROM pessoa WHERE id_pessoa = ?; ";
@@ -113,6 +118,7 @@ public class PessoaDAO {
 		return pessoa;
 	}
 
+	@Override
 	public List<PessoaVO> findAll() {
 
 		List<PessoaVO> lista = new ArrayList<>();
@@ -134,7 +140,8 @@ public class PessoaDAO {
 		return lista;
 	}
 
-	private PessoaVO completeResultset(ResultSet rs) throws SQLException {
+	@Override
+	public PessoaVO completeResultset(ResultSet rs) throws SQLException {
 
 		PessoaVO pessoa = new PessoaVO();
 		pessoa.setIdPessoa(rs.getInt("id_pessoa"));
@@ -143,11 +150,10 @@ public class PessoaDAO {
 		pessoa.setSexo(rs.getString("sexo"));
 		pessoa.setDataNascimento(LocalDate.parse(rs.getString("dataNascimento")));
 		pessoa.setCategoria(rs.getString("categoria"));
-		
-		
+
 		AplicacaoVacinaDAO aplicacaoVacinaDAO = new AplicacaoVacinaDAO();
 		List<AplicacaoVacinaVO> lista = aplicacaoVacinaDAO.findByPessoa(pessoa.getIdPessoa());
-		
+
 		pessoa.setVacinacoes(lista);
 
 		return pessoa;

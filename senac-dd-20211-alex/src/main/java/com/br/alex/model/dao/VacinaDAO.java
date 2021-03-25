@@ -11,10 +11,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.br.alex.model.entity.VacinaVO;
+import com.br.alex.repository.BaseDAO;
 import com.br.alex.repository.Conexao;
 
-public class VacinaDAO {
+public class VacinaDAO implements BaseDAO<VacinaVO> {
 
+	@Override
 	public VacinaVO insert(VacinaVO vacinaVO) {
 
 		String sql = "INSERT INTO vacina(nome_vacina, responsavel_pesquisa, pais_origem, "
@@ -46,6 +48,7 @@ public class VacinaDAO {
 		return vacinaVO;
 	}
 
+	@Override
 	public boolean update(VacinaVO vacinaVO) {
 
 		boolean updated = false;
@@ -75,6 +78,7 @@ public class VacinaDAO {
 
 	}
 
+	@Override
 	public boolean delete(Integer idVacina) {
 
 		boolean deleted = false;
@@ -95,6 +99,7 @@ public class VacinaDAO {
 		return deleted;
 	}
 
+	@Override
 	public VacinaVO findById(Integer idVacina) {
 
 		String sql = "SELECT * FROM vacina WHERE id_vacina = ?";
@@ -116,6 +121,7 @@ public class VacinaDAO {
 		return vacina;
 	}
 
+	@Override
 	public List<VacinaVO> findAll() {
 
 		String sql = "SELECT * FROM vacina;";
@@ -142,7 +148,8 @@ public class VacinaDAO {
 
 	}
 
-	private VacinaVO completeResultset(ResultSet rs) throws SQLException {
+	@Override
+	public VacinaVO completeResultset(ResultSet rs) throws SQLException {
 
 		VacinaVO vacinaVO = new VacinaVO();
 
