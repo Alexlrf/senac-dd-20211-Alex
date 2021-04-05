@@ -64,12 +64,12 @@ public class Principal {
 		
 		// ===================  Busca por ID  ============================================
 		
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		PessoaVO pessoa;
-		
-		pessoa = pessoaDAO.findById(3);
-		
-		System.out.println(pessoa.toString());
+//		PessoaDAO pessoaDAO = new PessoaDAO();
+//		PessoaVO pessoa;
+//		
+//		pessoa = pessoaDAO.findById(3);
+//		
+//		System.out.println(pessoa.toString());
 		
 		
 		// ==================== Busca Todos ===================================================
@@ -169,11 +169,22 @@ public class Principal {
 //		for (AplicacaoVacinaVO aplicacao : lista) {
 //			
 //			System.out.println("\n"+aplicacao.toString());
+		
+		
+		
+		
+//		VacinaDAO dao = new VacinaDAO();
+//		VacinaVO vo = new VacinaVO();
+//		
+//		vo.setNomeVacina("Vacina444");
+//		vo.setPaisOrigem("Estônia444");	
+//		
+//		int retorno = dao.findIdForPaisAndNomeVacina(vo);
+//		
+//		System.out.println(retorno);
 			
 		}
-		
-		
-		
+	
 		
 		
 	

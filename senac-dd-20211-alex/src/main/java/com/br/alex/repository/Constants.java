@@ -2,13 +2,13 @@ package com.br.alex.repository;
 
 public class Constants {
 
-	public static final String FASE_PESQUISADORES = "pesquisadores";
-	public static final String FASE_VOLUNTARIOS = "voluntarios";
-	public static final String FASE_PUBLICO_GERAL = "publicoGeral";
+	public static final String FASE_PESQUISADORES = "PESQUISADOR";
+	public static final String FASE_VOLUNTARIOS = "VOLUNTARIO";
+	public static final String FASE_PUBLICO_GERAL = "PUBLICO GERAL";
 
-	public static final String ESTAGIO_INICIAL = "inicial";
-	public static final String ESTAGIO_TESTES = "testes";
-	public static final String ESTAGIO_APLICACAOEMMASSA = "aplicacaoMassa";
+	public static final String ESTAGIO_INICIAL = "INICIAL";
+	public static final String ESTAGIO_TESTES = "TESTES";
+	public static final String ESTAGIO_APLICACAOEMMASSA = "APLICAÇÃO EM MASSA";
 
 	public static final int REACAO_PESSIMA = 1;
 	public static final int REACAO_RUIM = 2;

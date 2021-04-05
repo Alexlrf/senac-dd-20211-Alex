@@ -6,18 +6,18 @@ public class VacinaVO {
 
 	private Integer idVacina;
 	private String nomeVacina;
-	private String responsavelPesquisa;
+	private int idPessoaResponsavel;
 	private String paisOrigem;
 	private int quantidadeDoses;
 	private String estagioPesquisa;
 	private LocalDate dataInicioPesquisa;
 	private String faseVacina;
 
-	public VacinaVO(String nomeVacina, String responsavelPesquisa, String paisOrigem, int quantidadeDoses,
+	public VacinaVO(String nomeVacina, int idPessoaResponsavel, String paisOrigem, int quantidadeDoses,
 			String estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina) {
 		super();
 		this.nomeVacina = nomeVacina;
-		this.responsavelPesquisa = responsavelPesquisa;
+		this.idPessoaResponsavel = idPessoaResponsavel;
 		this.paisOrigem = paisOrigem;
 		this.quantidadeDoses = quantidadeDoses;
 		this.estagioPesquisa = estagioPesquisa;
@@ -45,12 +45,12 @@ public class VacinaVO {
 		this.nomeVacina = nomeVacina;
 	}
 
-	public String getResponsavelPesquisa() {
-		return responsavelPesquisa;
+	public int getidPessoaResponsavel() {
+		return idPessoaResponsavel;
 	}
 
-	public void setResponsavelPesquisa(String responsavelPesquisa) {
-		this.responsavelPesquisa = responsavelPesquisa;
+	public void setidPessoaResponsavel(int idPessoaResponsavel) {
+		this.idPessoaResponsavel = idPessoaResponsavel;
 	}
 
 	public String getPaisOrigem() {
@@ -96,7 +96,7 @@ public class VacinaVO {
 	@Override
 	public String toString() {
 		return "VacinaVO [\nidVacina=" + idVacina + "\n, nomeVacina=" + nomeVacina + "\n, responsavelPesquisa="
-				+ responsavelPesquisa + "\n, paisOrigem=" + paisOrigem + "\n, quantidadeDoses=" + quantidadeDoses
+				+ idPessoaResponsavel + "\n, paisOrigem=" + paisOrigem + "\n, quantidadeDoses=" + quantidadeDoses
 				+ "\n, estagioPesquisa=" + estagioPesquisa + "\n, dataInicioPesquisa=" + dataInicioPesquisa
 				+ "\n, faseVacina=" + faseVacina + "\n]";
 	}

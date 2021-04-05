@@ -19,14 +19,14 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 	@Override
 	public VacinaVO insert(VacinaVO vacinaVO) {
 
-		String sql = "INSERT INTO vacina(nome_vacina, responsavel_pesquisa, pais_origem, "
+		String sql = "INSERT INTO vacina(nome_vacina, id_pessoa_responsavel, pais_origem, "
 				+ "quantidade_doses, estagio_pesquisa, inicio_pesquisa, fase_vacina)" + " values(?, ?, ?, ?, ?, ?, ?);";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
 
 			stmt.setString(1, vacinaVO.getNomeVacina());
-			stmt.setString(2, vacinaVO.getResponsavelPesquisa());
+			stmt.setInt(2, vacinaVO.getidPessoaResponsavel());
 			stmt.setString(3, vacinaVO.getPaisOrigem());
 			stmt.setInt(4, vacinaVO.getQuantidadeDoses());
 			stmt.setString(5, vacinaVO.getEstagioPesquisa());
@@ -52,13 +52,13 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 	public boolean update(VacinaVO vacinaVO) {
 
 		boolean updated = false;
-		String sql = "UPDATE vacina SET nome_vacina = ?, responsavel_pesquisa = ?, pais_origem = ?, quantidade_doses = ?"
+		String sql = "UPDATE vacina SET nome_vacina = ?, id_pessoa_responsavel = ?, pais_origem = ?, quantidade_doses = ?"
 				+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ? WHERE id_vacina = ?;";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
 			stmt.setString(1, vacinaVO.getNomeVacina());
-			stmt.setString(2, vacinaVO.getResponsavelPesquisa());
+			stmt.setInt(2, vacinaVO.getidPessoaResponsavel());
 			stmt.setString(3, vacinaVO.getPaisOrigem());
 			stmt.setInt(4, vacinaVO.getQuantidadeDoses());
 			stmt.setString(5, vacinaVO.getEstagioPesquisa());
@@ -155,7 +155,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 		vacinaVO.setIdVacina(rs.getInt("id_vacina"));
 		vacinaVO.setNomeVacina(rs.getString("nome_vacina"));
-		vacinaVO.setResponsavelPesquisa(rs.getString("responsavel_pesquisa"));
+		vacinaVO.setidPessoaResponsavel(rs.getInt("id_pessoa_responsavel"));
 		vacinaVO.setPaisOrigem(rs.getString("pais_origem"));
 		vacinaVO.setDataInicioPesquisa(LocalDate.parse(rs.getString("inicio_pesquisa")));
 		vacinaVO.setEstagioPesquisa(rs.getString("estagio_pesquisa"));
@@ -163,6 +163,50 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 		vacinaVO.setFaseVacina(rs.getString("fase_vacina"));
 
 		return vacinaVO;
+	}
+
+	public boolean deletaVacinaPorPaisENome(VacinaVO vacina) {
+		boolean deleted = false;
+
+		String sql = "DELETE FROM vacina WHERE nome_vacina = ? AND pais_origem = ?;";
+
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
+			stmt.setString(1, vacina.getNomeVacina());
+			stmt.setString(2, vacina.getPaisOrigem());
+			stmt.executeUpdate();
+
+			deleted = true;
+
+		} catch (Exception e) {
+			
+			System.out.println("Não excluiu "+e.getMessage());
+			deleted = false;
+		}
+		return deleted;
+	}
+
+	public VacinaVO buscaPorPaisENomeVacina(VacinaVO vacina) {
+
+		String sql = "SELECT * FROM vacina WHERE nome_vacina = ? AND pais_origem = ? ;";
+		VacinaVO vacinaVO = new VacinaVO();
+
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
+
+			stmt.setString(1, vacina.getNomeVacina());
+			stmt.setString(2, vacina.getPaisOrigem());
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				vacinaVO = this.completeResultset(rs);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao trazer id " + e.getMessage());
+		}
+		return vacinaVO;
+
 	}
 
 }

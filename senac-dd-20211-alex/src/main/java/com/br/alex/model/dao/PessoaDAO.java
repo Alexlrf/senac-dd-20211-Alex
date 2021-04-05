@@ -159,4 +159,30 @@ public class PessoaDAO implements BaseDAO<PessoaVO> {
 		return pessoa;
 	}
 
+	public int buscaPorNomeECpf(PessoaVO pessoaVO) {
+		PessoaVO pessoa = new PessoaVO();
+		int resultado = 0;
+		String sql = "SELECT * FROM pessoa WHERE nome = ? AND cpf = ? ;";
+		
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
+
+			stmt.setString(1, pessoaVO.getNome());
+			stmt.setString(2, pessoaVO.getCpf());
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				pessoa = this.completeResultset(rs);
+				resultado = pessoa.getIdPessoa();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao trazer id " + e.getMessage());
+		}
+		if (pessoa.getIdPessoa()==null) {
+			resultado = 0;
+		}
+		 return resultado; 
+	}
+
 }
