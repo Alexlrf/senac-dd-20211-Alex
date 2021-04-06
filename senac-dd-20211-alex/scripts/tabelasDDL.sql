@@ -19,20 +19,9 @@ create table vacina (
 	, quantidade_doses int not null
 	, estagio_pesquisa varchar(30) not null
 	, inicio_pesquisa date not null
-	, fase_vacina varchar(30) not null     
+	, fase_vacina varchar(30) not null 
+    , situacao varchar(10) not null
     , constraint pk_vacina primary key (id_vacina)
     , constraint fk_vacina_pessoa foreign key (id_pessoa_responsavel) references pessoa (id_pessoa)
-);
-
-
-create table aplicacao_vacina (
-	id_aplicacao_vacina int not null auto_increment 
-	-- , id_vacina int not null
-    , id_pessoa int not null
-	, reacao int not null
-	, data_aplicacao date not null
-	, constraint pk_aplicacao_vacina primary key (id_aplicacao_vacina)   
-    -- , constraint fk_aplicacao_vacina_vacina foreign key (id_vacina) references vacina (id_vacina)
-    , constraint fk_aplicacao_vacina_pessoa foreign key (id_pessoa) references pessoa (id_pessoa)
 );
 

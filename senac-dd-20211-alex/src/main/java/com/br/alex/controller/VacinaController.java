@@ -13,8 +13,8 @@ public class VacinaController {
 		return vacinaBO.findAll();
 	}
 
-	public boolean deletaVacinaPorPaisENome(VacinaVO vacina) {		
-		return vacinaBO.deletaVacinaPorPaisENome(vacina);
+	public int alterarStatusVacina(VacinaVO vacina) {		
+		return vacinaBO.alterarStatusVacina(vacina);
 	}
 
 	public String cadastraVacina(VacinaVO vacina) {		

@@ -16,11 +16,21 @@ public class PessoaView {
 	static DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	public int cadastraPessoa(PessoaVO pessoaVO) {
-
 		pessoa.setNome(pessoaVO.getNome());		
 		pessoa.setCpf(pessoaVO.getCpf()); 
+		
+		if (pessoa.getNome() == null) {
+			pessoa.setNome(
+					JOptionPane.showInputDialog(null, "Digite o nome", JOptionPane.QUESTION_MESSAGE));			
+		}
+		
+		if(pessoa.getCpf() == null) {
+			pessoa.setCpf(
+					JOptionPane.showInputDialog(null, "Digite o CPF", JOptionPane.QUESTION_MESSAGE));
+		}
+		
 		pessoa.setSexo(
-				JOptionPane.showInputDialog(null, "Digite o sexo do pesquisador", JOptionPane.QUESTION_MESSAGE));
+				JOptionPane.showInputDialog(null, "Digite o sexo", JOptionPane.QUESTION_MESSAGE));
 
 		String[] categorias = { "ESCOLHA UMA OPÇÃO", Constants.FASE_PESQUISADORES, Constants.FASE_VOLUNTARIOS,
 				Constants.FASE_PUBLICO_GERAL };
@@ -29,7 +39,7 @@ public class PessoaView {
 		pessoa.setCategoria(opcaoEscolhida);
 		
 		LocalDate dataNascimento = (LocalDate.parse(JOptionPane.showInputDialog(null,
-				"Digite a data de nascimento do pesquisador", JOptionPane.QUESTION_MESSAGE), dataFormatter));
+				"Digite a data de nascimento", JOptionPane.QUESTION_MESSAGE), dataFormatter));
 		pessoa.setDataNascimento(dataNascimento);
 
 		int retorno = pessoaController.cadastraPesquisador(pessoa);
