@@ -20,7 +20,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 	public VacinaVO insert(VacinaVO vacinaVO) {
 
 		String sql = "INSERT INTO vacina(nome_vacina, id_pessoa_responsavel, pais_origem, "
-				+ "quantidade_doses, estagio_pesquisa, inicio_pesquisa, fase_vacina)" + " values(?, ?, ?, ?, ?, ?, ?);";
+				+ "quantidade_doses, estagio_pesquisa, inicio_pesquisa, fase_vacina, situacao)" + " values(?, ?, ?, ?, ?, ?, ?, ?);";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatementWithPk(conn, sql);) {
@@ -32,6 +32,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			stmt.setString(5, vacinaVO.getEstagioPesquisa());
 			stmt.setDate(6, java.sql.Date.valueOf(vacinaVO.getDataInicioPesquisa()));
 			stmt.setString(7, vacinaVO.getFaseVacina());
+			stmt.setString(8, vacinaVO.getSituacao());
 			stmt.executeUpdate();
 
 			ResultSet returnId = stmt.getGeneratedKeys();
@@ -53,7 +54,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 		boolean updated = false;
 		String sql = "UPDATE vacina SET nome_vacina = ?, id_pessoa_responsavel = ?, pais_origem = ?, quantidade_doses = ?"
-				+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ? WHERE id_vacina = ?;";
+				+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ? situacao = ?  WHERE id_vacina = ?;";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
@@ -64,7 +65,8 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			stmt.setString(5, vacinaVO.getEstagioPesquisa());
 			stmt.setDate(6, java.sql.Date.valueOf(vacinaVO.getDataInicioPesquisa()));
 			stmt.setString(7, vacinaVO.getFaseVacina());
-			stmt.setInt(8, vacinaVO.getIdVacina());
+			stmt.setString(8, vacinaVO.getSituacao());
+			stmt.setInt(9, vacinaVO.getIdVacina());
 			stmt.executeUpdate();
 
 			updated = true;
@@ -161,6 +163,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 		vacinaVO.setEstagioPesquisa(rs.getString("estagio_pesquisa"));
 		vacinaVO.setQuantidadeDoses(rs.getInt("quantidade_doses"));
 		vacinaVO.setFaseVacina(rs.getString("fase_vacina"));
+		vacinaVO.setSituacao(rs.getString("situacao"));
 
 		return vacinaVO;
 	}
@@ -178,7 +181,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 			deleted = true;
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			
 			System.out.println("Não excluiu "+e.getMessage());
 			deleted = false;
@@ -202,11 +205,31 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 				vacinaVO = this.completeResultset(rs);
 			}
 
-		} catch (Exception e) {
-			System.out.println("Erro ao trazer id " + e.getMessage());
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar vacina por país e nome " + e.getMessage());
 		}
 		return vacinaVO;
 
+	}
+
+	public int alterarStatusVacina(VacinaVO vacina) {
+		int resultado = 0;
+		String sql = "UPDATE vacina set situacao = ? WHERE nome_vacina = ? AND pais_origem = ?;";
+		
+		try (Connection conn = Conexao.getConnection();
+				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)){
+			stmt.setString(1, vacina.getSituacao());
+			stmt.setString(2, vacina.getNomeVacina());
+			stmt.setString(3, vacina.getPaisOrigem());
+						
+			resultado = stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			resultado = 0;
+			System.out.println("Erro ao alterar status da vacina " + e.getMessage());
+		} 
+		
+		return resultado;
 	}
 
 }

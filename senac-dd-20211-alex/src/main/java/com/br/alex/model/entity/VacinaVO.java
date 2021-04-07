@@ -6,15 +6,17 @@ public class VacinaVO {
 
 	private Integer idVacina;
 	private String nomeVacina;
-	private int idPessoaResponsavel;
+	private int idPessoaResponsavel;	
 	private String paisOrigem;
 	private int quantidadeDoses;
 	private String estagioPesquisa;
 	private LocalDate dataInicioPesquisa;
 	private String faseVacina;
+	private String situacao;
 
+	
 	public VacinaVO(String nomeVacina, int idPessoaResponsavel, String paisOrigem, int quantidadeDoses,
-			String estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina) {
+			String estagioPesquisa, LocalDate dataInicioPesquisa, String faseVacina, String situacao) {
 		super();
 		this.nomeVacina = nomeVacina;
 		this.idPessoaResponsavel = idPessoaResponsavel;
@@ -23,10 +25,11 @@ public class VacinaVO {
 		this.estagioPesquisa = estagioPesquisa;
 		this.dataInicioPesquisa = dataInicioPesquisa;
 		this.faseVacina = faseVacina;
+		this.situacao = situacao;
 	}
 	
 	public VacinaVO() {
-		super();
+ 
 	}
 
 	public Integer getIdVacina() {
@@ -93,13 +96,12 @@ public class VacinaVO {
 		this.faseVacina = faseVacina;
 	}
 	
-	@Override
-	public String toString() {
-		return "VacinaVO [\nidVacina=" + idVacina + "\n, nomeVacina=" + nomeVacina + "\n, responsavelPesquisa="
-				+ idPessoaResponsavel + "\n, paisOrigem=" + paisOrigem + "\n, quantidadeDoses=" + quantidadeDoses
-				+ "\n, estagioPesquisa=" + estagioPesquisa + "\n, dataInicioPesquisa=" + dataInicioPesquisa
-				+ "\n, faseVacina=" + faseVacina + "\n]";
+	public String getSituacao() {
+		return situacao;
 	}
 
-
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+	
 }
