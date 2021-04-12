@@ -25,9 +25,9 @@ public class VacinaView {
 		String opcaoEscolhida = (String) JOptionPane.showInputDialog(null, null, "MENU VACINA",
 				JOptionPane.QUESTION_MESSAGE, null, itens, itens[0]);
 
-		if (opcaoEscolhida == itens[1]) {
-			cadastrarVacina();
-
+		if (opcaoEscolhida == itens[1]) {			
+			cadastrarVacina();		
+	
 		} else if (opcaoEscolhida == itens[2]) {
 			listarVacinas();
 
@@ -156,6 +156,8 @@ public class VacinaView {
 			JOptionPane.showMessageDialog(null, "código ID do pesquisador: " + retorno, "MENU VACINA",
 					JOptionPane.INFORMATION_MESSAGE);
 			return retorno;
+
 		}
+	
 	}
 }
