@@ -105,7 +105,8 @@ public class TelaTabelaVacinas extends JFrame {
 			}
 		});
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEditar.setBounds(470, 282, 202, 23);		
+		btnEditar.setBounds(470, 282, 202, 23);	
+		btnEditar.setEnabled(false);
 		contentPane.add(btnEditar);
 		
 		
