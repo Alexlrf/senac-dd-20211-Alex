@@ -104,4 +104,13 @@ public class VacinaVO {
 		this.situacao = situacao;
 	}
 	
+
+	@Override
+	public String toString() {
+		return "VacinaVO [idVacina=" + idVacina + ", nomeVacina=" + nomeVacina + ", idPessoaResponsavel="
+				+ idPessoaResponsavel + ", paisOrigem=" + paisOrigem + ", quantidadeDoses=" + quantidadeDoses
+				+ ", estagioPesquisa=" + estagioPesquisa + ", dataInicioPesquisa=" + dataInicioPesquisa
+				+ ", faseVacina=" + faseVacina + ", situacao=" + situacao + "]";
+	}
+	
 }

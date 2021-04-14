@@ -1,11 +1,28 @@
 package com.br.alex.view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 import com.br.alex.controller.PessoaController;
 import com.br.alex.controller.VacinaController;
@@ -14,35 +31,19 @@ import com.br.alex.model.entity.VacinaVO;
 import com.br.alex.repository.Constants;
 import com.br.alex.repository.Utils;
 
-import java.awt.Color;
-import java.awt.Frame;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JRadioButton;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.SwingConstants;
-import javax.swing.JSpinner;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.awt.event.ActionEvent;
-
 public class TelaVacina extends JFrame {
-
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTextField textFieldNomeVacina;
 	private JTextField textFieldPaisOrigem;
 	private JTextField textFieldCodigoPesquisador;
 	private JTextField textFieldDataInicioPesquisa;
+	private JSpinner spinnerDoses;
+	private JRadioButton btnRadioButtonAtiva;
+	private JRadioButton btnRadioButtonInativa;
+	private JComboBox comboBoxEstagio;
+	private VacinaVO vacinaVO;	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public static void main(String[] args) {
@@ -61,8 +62,15 @@ public class TelaVacina extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	public TelaVacina(VacinaVO vacinaVO) {
+		this.vacinaVO = vacinaVO;
+				
+	}
+	
+	
 	public TelaVacina() {
-		// setExtendedState(Frame.MAXIMIZED_BOTH);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 597, 382);
 		contentPane = new JPanel();
@@ -71,14 +79,14 @@ public class TelaVacina extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(70, 130, 180));
-		panelPrincipal.setBorder(new MatteBorder(10, 10, 10, 10, (Color) new Color(25, 25, 112)));
+		panelPrincipal.setBackground(SystemColor.activeCaption);
+		panelPrincipal.setBorder(new LineBorder(new Color(25, 25, 112), 10, true));
 		panelPrincipal.setBounds(0, 0, 581, 343);
 		contentPane.add(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		JPanel panelCadastrar = new JPanel();
-		panelCadastrar.setBorder(new MatteBorder(7, 7, 7, 7, (Color) new Color(25, 25, 112)));
+		panelCadastrar.setBorder(new LineBorder(new Color(25, 25, 112), 7));
 		panelCadastrar.setBackground(new Color(192, 192, 192));
 		panelCadastrar.setBounds(56, 53, 469, 211);
 		panelPrincipal.add(panelCadastrar);
@@ -124,7 +132,7 @@ public class TelaVacina extends JFrame {
 		textFieldDataInicioPesquisa.setColumns(10);
 		panelCadastrar.add(textFieldDataInicioPesquisa);
 
-		JComboBox comboBoxEstagio = new JComboBox();
+		comboBoxEstagio = new JComboBox();
 		comboBoxEstagio.setBounds(22, 125, 164, 22);
 		comboBoxEstagio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		comboBoxEstagio.setModel(new DefaultComboBoxModel(
@@ -138,14 +146,14 @@ public class TelaVacina extends JFrame {
 				new String[] { "FASE", "PESQUISADOR", "VOLUNT\u00C1RIO", "P\u00DABLICO EM GERAL" }));
 		panelCadastrar.add(comboBoxFase);
 
-		JRadioButton btnRadioButtonAtiva = new JRadioButton("Ativa");
+		btnRadioButtonAtiva = new JRadioButton("Ativa");
 		btnRadioButtonAtiva.setBounds(21, 80, 70, 23);
 		buttonGroup.add(btnRadioButtonAtiva);
 		btnRadioButtonAtiva.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRadioButtonAtiva.setBackground(new Color(192, 192, 192));
 		panelCadastrar.add(btnRadioButtonAtiva);
 
-		JRadioButton btnRadioButtonInativa = new JRadioButton("Inativa");
+		btnRadioButtonInativa = new JRadioButton("Inativa");
 		btnRadioButtonInativa.setBounds(123, 80, 83, 23);
 		buttonGroup.add(btnRadioButtonInativa);
 		btnRadioButtonInativa.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -158,7 +166,7 @@ public class TelaVacina extends JFrame {
 		lblNumeroDoses.setBounds(252, 169, 132, 14);
 		panelCadastrar.add(lblNumeroDoses);
 
-		JSpinner spinnerDoses = new JSpinner();
+		spinnerDoses = new JSpinner();
 		spinnerDoses.setFont(new Font("Tahoma", Font.BOLD, 11));
 		spinnerDoses.setBounds(394, 166, 42, 20);
 		panelCadastrar.add(spinnerDoses);
@@ -227,14 +235,21 @@ public class TelaVacina extends JFrame {
 		panelPrincipal.add(btnLimpar);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMenuPrincipal telaPrincipal = new TelaMenuPrincipal();
+				telaPrincipal.setVisible(true);
+				dispose();
+			}
+		});
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVoltar.setBounds(58, 290, 125, 23);
 		panelPrincipal.add(btnVoltar);
 
-		JLabel lblTitulo = new JLabel("VACINAS");
+		JLabel lblTitulo = new JLabel("CADASTRO DE VACINAS");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setForeground(new Color(25, 25, 112));
-		lblTitulo.setBounds(56, 19, 104, 32);
+		lblTitulo.setBounds(56, 19, 469, 32);
 		panelPrincipal.add(lblTitulo);
 	}
 
@@ -262,5 +277,33 @@ public class TelaVacina extends JFrame {
 					JOptionPane.INFORMATION_MESSAGE);
 			return retorno;
 		}
+	}
+
+	public VacinaVO getVacinaVO() {
+		return vacinaVO;
+	}
+
+	public void setVacinaVO(VacinaVO vacinaVO) {
+		this.vacinaVO = vacinaVO;
+	}
+
+	public void preencheTela(VacinaVO vacina) {
+		this.setVisible(true);
+		this.textFieldNomeVacina.setText(vacina.getNomeVacina());
+		this.textFieldPaisOrigem.setText(vacina.getPaisOrigem());
+		this.textFieldDataInicioPesquisa.setText(vacina.getDataInicioPesquisa().toString());
+		//this.textFieldCodigoPesquisador.setText(vacina.getidPessoaResponsavel());
+		this.spinnerDoses.setValue(vacina.getQuantidadeDoses());
+		
+
+		if (vacina.getSituacao().equalsIgnoreCase(Constants.STATUS_VACINA_ATIVO)) {
+			this.btnRadioButtonAtiva.setSelected(true);
+	
+		} else {
+			this.btnRadioButtonInativa.setSelected(true);
+
+		}
+		
+		
 	}
 }
