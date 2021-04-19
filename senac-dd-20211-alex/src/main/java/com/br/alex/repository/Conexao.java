@@ -13,7 +13,7 @@ public class Conexao {
 	private static final String BANCODADOS = "db_vacinas";
 	private static final String CONEXAO = "jdbc:mysql://localhost:3306/" + BANCODADOS;
 	private static final String USER = "root";
-	private static final String PASSWORD = "admin";
+	private static final String PASSWORD = "root";
 
 	public static Connection getConnection() {
 		try {

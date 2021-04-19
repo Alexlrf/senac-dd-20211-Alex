@@ -38,13 +38,10 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			ResultSet returnId = stmt.getGeneratedKeys();
 			if (returnId.next()) {
 				vacinaVO.setIdVacina(returnId.getInt(1));
-
 			}
-
-			JOptionPane.showMessageDialog(null, "Inclusão efetuada!");
-
+			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao inserir cadastro!\n" + e.getMessage());
+			System.out.println("Erro ao inserir cadastro!\n" + e.getMessage());
 		}
 		return vacinaVO;
 	}
@@ -54,7 +51,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 		boolean updated = false;
 		String sql = "UPDATE vacina SET nome_vacina = ?, id_pessoa_responsavel = ?, pais_origem = ?, quantidade_doses = ?"
-				+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ? situacao = ?  WHERE id_vacina = ?;";
+				+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ?, situacao = ?  WHERE id_vacina = ?;";
 
 		try (Connection conn = Conexao.getConnection();
 				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
@@ -69,15 +66,13 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			stmt.setInt(9, vacinaVO.getIdVacina());
 			stmt.executeUpdate();
 
-			updated = true;
-			JOptionPane.showMessageDialog(null, "Alteração efetuada!");
+			updated = true;			
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao tentar alterar!\n" + e.getMessage());
+			System.out.println("Erro ao tentar alterar!\n" + e.getMessage());
 			updated = false;
 		}
 		return updated;
-
 	}
 
 	@Override
@@ -91,11 +86,10 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			stmt.setInt(1, idVacina);
 			stmt.executeUpdate();
 
-			deleted = true;
-			JOptionPane.showMessageDialog(null, "Exclusão efetuada!");
+			deleted = true;			
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao tentar excluir!\n" + e.getMessage());
+			System.out.println("Erro ao tentar excluir!\n" + e.getMessage());
 			deleted = false;
 		}
 		return deleted;
@@ -113,12 +107,11 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-
 				vacina = this.completeResultset(rs);
 			}
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao realizar consulta por ID!\n" + e.getMessage());
+			System.out.println("Erro ao realizar consulta por ID!\n" + e.getMessage());
 		}
 		return vacina;
 	}
@@ -136,18 +129,14 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-
 				vacinaVO = this.completeResultset(rs);
 				vacinas.add(vacinaVO);
-
 			}
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao realizar consulta geral!\n" + e.getMessage());
+			System.out.println("Erro ao realizar consulta geral!\n" + e.getMessage());
 		}
-
 		return vacinas;
-
 	}
 
 	@Override
@@ -181,8 +170,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 
 			deleted = true;
 
-		} catch (SQLException e) {
-			
+		} catch (SQLException e) {			
 			System.out.println("Não excluiu "+e.getMessage());
 			deleted = false;
 		}
@@ -209,7 +197,6 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			System.out.println("Erro ao buscar vacina por país e nome " + e.getMessage());
 		}
 		return vacinaVO;
-
 	}
 
 	public int alterarStatusVacina(VacinaVO vacina) {
@@ -220,16 +207,40 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 				PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)){
 			stmt.setString(1, vacina.getSituacao());
 			stmt.setString(2, vacina.getNomeVacina());
-			stmt.setString(3, vacina.getPaisOrigem());
-						
+			stmt.setString(3, vacina.getPaisOrigem());						
 			resultado = stmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			resultado = 0;
 			System.out.println("Erro ao alterar status da vacina " + e.getMessage());
-		} 
-		
+		} 		
 		return resultado;
+	}
+
+	public boolean updateVacinaDTO(VacinaVO vacina) {
+				
+			boolean updated = false;
+			String sql = "UPDATE vacina SET id_pessoa_responsavel = ?, quantidade_doses = ?"
+					+ ", estagio_pesquisa = ?, inicio_pesquisa = ?, fase_vacina = ?, situacao = ?  WHERE id_vacina = ?;";
+
+			try (Connection conn = Conexao.getConnection();
+					PreparedStatement stmt = Conexao.getPreparedStatement(conn, sql)) {
+				stmt.setInt(1, vacina.getidPessoaResponsavel());
+				stmt.setInt(2, vacina.getQuantidadeDoses());
+				stmt.setString(3, vacina.getEstagioPesquisa());
+				stmt.setDate(4, java.sql.Date.valueOf(vacina.getDataInicioPesquisa()));
+				stmt.setString(5, vacina.getFaseVacina());
+				stmt.setString(6, vacina.getSituacao());
+				stmt.setInt(7, vacina.getIdVacina());
+				stmt.executeUpdate();
+
+				updated = true;			
+
+			} catch (SQLException e) {
+				System.out.println("Erro ao tentar alterar!\n" + e.getMessage());
+				updated = false;
+			}
+			return updated;			
 	}
 
 }
