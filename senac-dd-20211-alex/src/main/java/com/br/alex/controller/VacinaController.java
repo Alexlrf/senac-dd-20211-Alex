@@ -21,5 +21,9 @@ public class VacinaController {
 		return vacinaBO.cadastraVacina(vacina);
 	}
 
+	public String alterarVacina(VacinaVO vacina) {		
+		return vacinaBO.alterarVacina(vacina);
+	}
+
 
 }
