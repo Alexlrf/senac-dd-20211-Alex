@@ -237,6 +237,10 @@ public class TelaVacina extends JFrame {
 		btnLimpar.setBounds(232, 290, 125, 23);
 		
 		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnAtualizar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAtualizar.setBounds(400, 290, 125, 23);
 		btnAtualizar.setVisible(false);
