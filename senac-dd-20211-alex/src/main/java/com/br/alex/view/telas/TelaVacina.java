@@ -234,6 +234,7 @@ public class TelaVacina extends JFrame {
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if (validaEntradaDados()) {
 					
@@ -259,6 +260,7 @@ public class TelaVacina extends JFrame {
 					String retorno = vacinaController.alterarVacina(vacinaVO);
 					JOptionPane.showMessageDialog(null, retorno, "MENU VACINA", JOptionPane.INFORMATION_MESSAGE, null);
 				}				
+
 			}
 		});
 		btnAtualizar.setFont(new Font("Tahoma", Font.BOLD, 11));
