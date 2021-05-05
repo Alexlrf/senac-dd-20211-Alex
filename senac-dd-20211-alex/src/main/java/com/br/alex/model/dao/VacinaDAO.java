@@ -8,9 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import com.br.alex.model.entity.VacinaVO;
+import com.br.alex.model.seletor.VacinaSeletor;
 import com.br.alex.repository.BaseDAO;
 import com.br.alex.repository.Conexao;
 
@@ -171,7 +170,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			deleted = true;
 
 		} catch (SQLException e) {			
-			System.out.println("N�o excluiu "+e.getMessage());
+			System.out.println("N�o excluiu "+e.getMessage());
 			deleted = false;
 		}
 		return deleted;
@@ -194,7 +193,7 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao buscar vacina por pa�s e nome " + e.getMessage());
+			System.out.println("Erro ao buscar vacina por pa�s e nome " + e.getMessage());
 		}
 		return vacinaVO;
 	}
@@ -241,6 +240,111 @@ public class VacinaDAO implements BaseDAO<VacinaVO> {
 				updated = false;
 			}
 			return updated;			
+	}
+
+	public List<VacinaVO> listarComFiltros(VacinaSeletor vacinaSeletor) {
+		String sql = " SELECT * FROM VACINA p";
+
+		if (vacinaSeletor.temFiltro()) {
+			sql = criarFiltros(vacinaSeletor, sql);
+		}
+
+		if (vacinaSeletor.temPaginacao()) {
+			sql += " LIMIT " + vacinaSeletor.getLimite() + " OFFSET " + vacinaSeletor.getOffset();
+		}
+		Connection conexao = Conexao.getConnection();
+		PreparedStatement prepStmt = Conexao.getPreparedStatement(conexao, sql);
+		List<VacinaVO> vacinas = new ArrayList<>();
+
+		try {
+			ResultSet result = prepStmt.executeQuery();
+
+			while (result.next()) {
+				VacinaVO p = completeResultset(result);
+				vacinas.add(p);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao consultar vacinas com filtros.\nCausa: " + e.getMessage());
+		}
+		return vacinas;
+
+	}
+
+	/**
+	 * Cria os filtros de consulta (cláusulas WHERE/AND) de acordo com o que foi
+	 * preeenchido no seletor.
+	 * 
+	 * ATENÇÃO: a ordem de criação dos filtros e posterior preenchimentos é
+	 * relevante, logo este método é intimamente ligado ao método
+	 * preencherParametrosConsulta
+	 * 
+	 * @param seletor o seletor de produtos
+	 * @param jpql    a consulta que será preenchida
+	 */
+	private String criarFiltros(VacinaSeletor seletor, String sql) {
+
+		// Tem pelo menos UM filtro
+		sql += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getidVacina() > 0) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.id_vacina = " + seletor.getidVacina();
+			primeiro = false;
+		}
+
+		if ((seletor.getNome() != null) && (seletor.getNome().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.nome_vacina LIKE '%" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+
+		if ((seletor.getPaisOrigem() != null) && (seletor.getPaisOrigem().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.pais_origem = '" + seletor.getPaisOrigem() + "'";
+			primeiro = false;
+		}
+
+		if ((seletor.getSituacao() != null) && (seletor.getSituacao().trim().length() > 0)) {
+			if (!primeiro) {
+				sql += " AND ";
+			}
+			sql += "p.situacao = '" + seletor.getSituacao() + "'";
+			primeiro = false;
+		}
+
+//		if ((seletor.getDataInicioCadastro() != null) && (seletor.getDataFimCadastro() != null)) {
+//			// Regra composta, olha as 3 opções de preenchimento do período
+//
+//			// Todo o período preenchido (início E fim)
+//			if (!primeiro) {
+//				sql += " AND ";
+//			}
+//			sql += "p.dataCadastro BETWEEN" + seletor.getDataInicioCadastro() + " AND " + seletor.getDataFimCadastro();
+//			primeiro = false;
+//		} else if (seletor.getDataInicioCadastro() != null) {
+//			// só o início
+//			if (!primeiro) {
+//				sql += " AND ";
+//			}
+//			sql += "p.dataCadastro >= " + seletor.getDataInicioCadastro();
+//			primeiro = false;
+//		} else if (seletor.getDataFimCadastro() != null) {
+//			// só o fim
+//			if (!primeiro) {
+//				sql += " AND ";
+//			}
+//			sql += "p.dataCadastro <= " + seletor.getDataFimCadastro();
+//			primeiro = false;
+//		}
+
+		return sql;
 	}
 
 }

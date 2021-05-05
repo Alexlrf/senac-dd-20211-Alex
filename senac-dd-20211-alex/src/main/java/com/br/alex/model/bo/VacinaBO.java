@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.br.alex.model.dao.VacinaDAO;
 import com.br.alex.model.entity.VacinaVO;
+import com.br.alex.model.seletor.VacinaSeletor;
 
 public class VacinaBO {
 	
@@ -30,7 +31,7 @@ public class VacinaBO {
 			} 
 			
 		} else {
-			resultado = "Vacina já cadastrada neste país!";
+			resultado = "Vacina jï¿½ cadastrada neste paï¿½s!";
 			
 		}  
 		return resultado;
@@ -43,16 +44,16 @@ public class VacinaBO {
 		if (retorno) {
 			boolean resultado = vacinaDAO.update(vacina);
 			if(resultado) {
-				mensagem =  "Alteração efetuada com sucesso!";
+				mensagem =  "Alteraï¿½ï¿½o efetuada com sucesso!";
 			}else {
-				mensagem =  "Alteração não efetuada!";
+				mensagem =  "Alteraï¿½ï¿½o nï¿½o efetuada!";
 			}
 			
 		}else {			
 			boolean resposta = vacinaDAO.updateVacinaDTO(vacina);
 			
 			if (resposta) {
-				mensagem = "Alteração efetuada com sucesso!";			
+				mensagem = "Alteraï¿½ï¿½o efetuada com sucesso!";			
 				
 			} else {
 				mensagem = "Erro ao atualizar dados!";
@@ -70,10 +71,14 @@ public class VacinaBO {
 			
 		} else if (vacinaVO.getNomeVacina().toUpperCase().equals(vacina.getNomeVacina().toUpperCase())
 				&& vacinaVO.getPaisOrigem().toUpperCase().equals(vacina.getPaisOrigem().toUpperCase())){
-			System.out.println("Nome de Vacina "+vacina.getNomeVacina()+" já existe no país "+vacina.getPaisOrigem()+"!");
+			System.out.println("Nome de Vacina "+vacina.getNomeVacina()+" jï¿½ existe no paï¿½s "+vacina.getPaisOrigem()+"!");
 		}
 		
 		return retorno;
+	}
+
+	public List<VacinaVO> listarComFiltros(VacinaSeletor vacinaSeletor) {
+		return vacinaDAO.listarComFiltros(vacinaSeletor);
 	}
 
 

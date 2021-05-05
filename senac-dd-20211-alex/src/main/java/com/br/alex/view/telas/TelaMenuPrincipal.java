@@ -44,11 +44,11 @@ public class TelaMenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTítulo = new JLabel("Menu Principal");
-		lblTítulo.setForeground(new Color(25, 25, 112));
-		lblTítulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTítulo.setBounds(27, 20, 377, 28);
-		contentPane.add(lblTítulo);
+		JLabel lblTitulo = new JLabel("Menu Principal");
+		lblTitulo.setForeground(new Color(25, 25, 112));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblTitulo.setBounds(27, 20, 377, 28);
+		contentPane.add(lblTitulo);
 		
 		JPanel panelVacinas = new JPanel();
 		panelVacinas.setLayout(null);
